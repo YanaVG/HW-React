@@ -6,7 +6,6 @@ import CreateHeroe from './CreateHeroe';
 import SquardList from './SquardList';
 // import SavedSquards from './SavedSquards';
 import Panel from './shared/Panel/index';
-// import ChooseCapacity from './ChooseCapacity';
 import Button from './shared/Button/Button';
 import initialHeroes from '../heroes';
 import { getVisibleHeroes } from './utils/selector';
@@ -17,7 +16,7 @@ import styles from'./App.css';
      heroes: [ ...initialHeroes],
      filter: '',
      squads: [],
-     SavedSquards: [],
+     savedSquards: [],
    }
 
    getSquardHeroes = (heroes, squads ) => {
@@ -51,9 +50,29 @@ import styles from'./App.css';
     }); 
   };
 
+  deleteFromSquard = id => {
+    this.setState(state => ({
+      squads: state.squads.filter(squad => squad.id !== id)
+    }));
+  };
+
    handleFilterChange = str => {
     this.setState({ filter: str})
    };
+  
+  //  ???
+  //  handleSaveSquad = (heroes, squads, savedSquards) => {
+  //   squadHeroes = heroes.filter(heroe => heroe.id.includes(squads))
+  //   this.setState(state => ({
+  //     savedSquards: [...squadHeroes]
+  //   }));
+  //  };
+
+   handleResetEditor = () => {
+    this.setState(state => ({
+      squads: state.squads.splice(0)
+    }));
+   }; 
 
   render() {
     // console.log(`state.heroes`, this.state.heroes);
@@ -85,13 +104,14 @@ import styles from'./App.css';
         </ Panel>
         <Panel>
           <h2>Squad Heroes</h2>
-          <Button text='Save Squard'/>
-          <Button text='Reset Squard'/>
+          <Button onClick={this.handleSaveSquad} text='Save Squard'/>
+          <Button onClick={this.handleResetEditor} text='Reset Squard'/>
           <SquardList
             squads={squads}
             onGetSquadsHeroes ={this.getSquardHeroes}
             // onAddToSquad={this.addToSquard}
-            onDeleteHeroe={this.deleteHeroe}
+            onInfoHeroe={this.addInfoHeroe}
+            onDeleteFromSquad={this.deleteFromSquard}
           />
         </ Panel>
         <Panel>

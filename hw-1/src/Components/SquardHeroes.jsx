@@ -11,7 +11,7 @@ export default class Heroe extends Component {
         intelligence: PropTypes.number,
         speed: PropTypes.number,
         onGetSquadsHeroes: PropTypes.func.isRequired,
-        onDeleteHeroe: PropTypes.func.isRequired,
+        onDeleteFromSquad: PropTypes.func.isRequired,
         onInfoHeroe: PropTypes.func.isRequired,
         
     };
@@ -26,13 +26,13 @@ export default class Heroe extends Component {
         this.props.onGetSquadsHeroes(this.props.id);
         // const { id } = this.props;
     }
-    handleDelite = () => this.props.onDeleteHeroe(this.props.id);
+    handleDelite = () => this.props.onDeleteFromSquad(this.props.id);
 
     handleInfo = () => {
         this.props.onInfoHeroe(this.props.id);
-        // console.log(this.state.heroe);
-        const { name, strength, intelligence, speed } = this.props;
-      
+        console.log(this.state.heroe);
+        const { name, strength, intelligence, speed } = this.props; 
+
         console.log(`Heroe: ${name}
         strength: ${strength}
         intelligence: ${intelligence}
@@ -40,13 +40,8 @@ export default class Heroe extends Component {
         `);
     };
 
-    handSum = () => {
-
-    }
-
     render() {
-        return(
-            
+        return(      
             <div onClick={this.handleAdd}>
                 <span>{name}</span>
                 <div> 
@@ -54,7 +49,5 @@ export default class Heroe extends Component {
                     <Button onClick={this.handleInfo} text="Info" />
                 </div>  
            </div> 
-            // <Button text='Save Squard'/>
-            // <Button text='Reset Squard'/>
         )}
 }
