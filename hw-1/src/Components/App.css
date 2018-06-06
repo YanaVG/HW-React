@@ -1,0 +1,30 @@
+.App {
+  text-align: center;
+  width: 95%;
+}
+
+.App_header {
+  height: 150px;
+  padding: 15px;
+  margin-left: 2%;
+  margin-bottom: 1.5rem;
+  color: black;
+  font-size: 1.5em;
+  border-bottom: 3px solid rgb(73, 70, 70);
+}
+
+.App_intro {
+  font-size: large;
+}
+
+.App_wrap{
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  margin-left: 5%;
+}
+
+.App_box {
+  width: 23%;
+  margin-left: 2%;
+}
