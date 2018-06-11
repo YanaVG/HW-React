@@ -19,6 +19,7 @@ const makeOptions = num => {
 this.state = {
     inputName: 0,
 };
+
 const ChooseCapacity = ({inputName, onInputChange, value}) => (
     <div className={styles.form}>
         <CapacityTitle value={inputName} />

@@ -5,9 +5,9 @@ import styles from './HeroesList.css';
 
 const HeroesList = ({ heroes, ...props}) => (
     <ul className={styles.list}>
-    { heroes.map(heroe => (
-        <li key={heroe.id} className={styles.item}>
-        <Heroe { ...heroe}{ ...props} />
+    { heroes.map(hero => (
+        <li key={hero.id} className={styles.item}>
+        <Heroe { ...hero}{ ...props} />
         </li>
     ))}
    </ul>

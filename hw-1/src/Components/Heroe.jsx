@@ -9,9 +9,9 @@ export default class Heroe extends Component {
         strength: PropTypes.number,
         intelligence: PropTypes.number,
         speed: PropTypes.number,
-        onDeleteHeroe: PropTypes.func.isRequired,
-        onInfoHeroe: PropTypes.func.isRequired,
-        onAddHeroe: PropTypes.func.isRequired,
+        onDeleteHero: PropTypes.func.isRequired,
+        onInfoHero: PropTypes.func.isRequired,
+        onAddHero: PropTypes.func.isRequired,
     };
 
     static defaultProps = {
@@ -22,16 +22,15 @@ export default class Heroe extends Component {
         speed: 0,
     }
 
-    handleDelite = () => {
-        this.props.onDeleteHeroe(this.props.id);
-    }
+    handleDelete = () => this.props.onDeleteHero(this.props.id);
 
-    handleAdd = () => this.props.onAddHeroe(this.props.id);
+    handleAdd = () => this.props.onAddHero(this.props.id);
 
     handleInfo = () => {
-        this.props.onInfoHeroe(this.props.id);
-        // console.log(this.state.heroe);
-        const { name, strength, intelligence, speed } = this.props;
+        const { name, id, strength, intelligence, speed, onInfoHero } = this.props;
+        onInfoHero(id);
+        // console.log(this.state.hero);
+
       
         console.log(`Heroe: ${name}
         strength: ${strength}
@@ -47,7 +46,7 @@ export default class Heroe extends Component {
                 <span>{name}</span>
                 <div> 
                     <Button onClick={this.handleAdd} text="Add" />
-                    <Button onClick={this.handleDelite} text="Delete" />
+                    <Button onClick={this.handleDelete} text="Delete" />
                     <Button onClick={this.handleInfo} text="Info" />
                 </div>
                 

@@ -79,11 +79,12 @@ export default class CreateHeroe extends Component {
         return(
              <form onSubmit={this.handleSubmit} className={styles.form} >
                 <Input 
+                    className={styles.input }
+                    type="text"
                     name="name"
                     value={name}
-                    placeholder="Enter heroe name..."
+                    placeholder="Enter hero name..."
                     onChange={this.handleHeroInputChange}
-                    className={styles.input }
                 />
                 <ChooseCapacity onInputChange={this.onInputChange} inputName='strength' value={strength}/>
                 <ChooseCapacity onInputChange={this.onInputChange} inputName='intelligence' value={intelligence}/>

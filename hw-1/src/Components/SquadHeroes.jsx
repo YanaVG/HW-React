@@ -1,37 +1,35 @@
-/* eslint-disable */
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Button from './shared/Button/Button';
 
-export default class Heroe extends Component {
+export default class SquadHeroes extends Component {
     static propTypes = {
         id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
         strength: PropTypes.number,
         intelligence: PropTypes.number,
         speed: PropTypes.number,
-        onGetSquadsHeroes: PropTypes.func.isRequired,
         onDeleteFromSquad: PropTypes.func.isRequired,
-        onInfoHeroe: PropTypes.func.isRequired,
-        
+        onInfoHero: PropTypes.func,  
     };
 
     static defaultProps = {
+        id: '',
+        name: '',
         strength: 0,
         intelligence: 0,
         speed: 0,
+        onInfoHero: () => null,
+        onDeleteFromSquad: () => null,
+
     };
-  
-    handleAdd = () => {
-        this.props.onGetSquadsHeroes(this.props.id);
-        // const { id } = this.props;
-    }
+
     handleDelite = () => this.props.onDeleteFromSquad(this.props.id);
 
     handleInfo = () => {
-        this.props.onInfoHeroe(this.props.id);
-        console.log(this.state.heroe);
-        const { name, strength, intelligence, speed } = this.props; 
+        const { name, id, strength, intelligence, speed } = this.props; 
+        this.props.onInfoHero(id); 
 
         console.log(`Heroe: ${name}
         strength: ${strength}
@@ -41,13 +39,16 @@ export default class Heroe extends Component {
     };
 
     render() {
+        // console.log(this.props.heroes)
+        const { name } = this.props;
+        // const {strength, intelligence, speed } =this.props;
+        
         return(      
-            <div onClick={this.handleAdd}>
+            <div>
                 <span>{name}</span>
-                <div> 
                     <Button onClick={this.handleDelite} text="Delete" />
                     <Button onClick={this.handleInfo} text="Info" />
-                </div>  
-           </div> 
-        )}
+            </div>
+        );
+    }
 }
