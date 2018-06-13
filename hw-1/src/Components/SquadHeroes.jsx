@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Button from './shared/Button/Button';
+import styles from './SavedSquads.css';
 
 export default class SquadHeroes extends Component {
     static propTypes = {
@@ -39,12 +40,9 @@ export default class SquadHeroes extends Component {
     };
 
     render() {
-        // console.log(this.props.heroes)
-        const { name } = this.props;
-        // const {strength, intelligence, speed } =this.props;
-        
+        const { name } = this.props; 
         return(      
-            <div>
+            <div className={styles.squadWrap}>
                 <span>{name}</span>
                     <Button onClick={this.handleDelite} text="Delete" />
                     <Button onClick={this.handleInfo} text="Info" />

@@ -7,7 +7,4 @@ CapacityTitle.propTypes = {
   value: PropTypes.string.isRequired,
 };
 
-// CapacityTitle.defaultProps = {
-//   value: 0,
-// }
 export default CapacityTitle;

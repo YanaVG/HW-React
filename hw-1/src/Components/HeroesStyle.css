@@ -1,4 +1,9 @@
-.form {
+.form, .squadWrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.squadWrap {
   display: flex;
   flex-direction: column;
 }

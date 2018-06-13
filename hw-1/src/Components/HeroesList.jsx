@@ -21,4 +21,5 @@ HeroesList.propTypes = {
         }).isRequired,
     ).isRequired,
 };
+
 export default HeroesList;

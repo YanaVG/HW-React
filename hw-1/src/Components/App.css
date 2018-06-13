@@ -28,3 +28,8 @@
   width: 23%;
   margin-left: 2%;
 }
+
+.wrap_header {
+  padding-bottom: 10px;
+  border-bottom: 2px solid black;
+}

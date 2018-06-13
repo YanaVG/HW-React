@@ -1,12 +1,14 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import { v4 } from 'uuid';
 import HeroesList from './HeroesList';
 import HeroesFilter from './HeroesFilter';
 import CreateHeroe from './CreateHeroe';
 import SquadList from './SquadList';
-import SavedSquads from './SquadHeroes';
+import SavedSquads from './SavedSquads';
 import Panel from './shared/Panel/index';
 import Button from './shared/Button/Button';
+import SquadStats from './SquadStats';
 import initialHeroes from '../heroes';
 import { getVisibleHeroes } from './utils/selector';
 import { getsquadHeroes } from './utils/squadHeroes';
@@ -19,26 +21,10 @@ import styles from'./App.css';
      filter: '',
      squads: [],
      savedSquads: [],
-     strength: 0,
-     intelligence: 0,
-     speed: 0,
+    //  strength: 0,
+    //  intelligence: 0,
+    //  speed: 0,
    }
-
-   getTotalStats = arrayOfSquads => {
-    const totalStats = arrayOfSquads.reduce((total, stat) =>
-      total.value + stat.value, 
-      { value: 0}
-      );
-    return totalStats;
-    
-  };
-  
-  // totalValueStats = {
-  //   // strength: this.getTotalStats(this.heroes.strength),
-  //   speed: this.getTotalStats(this.squadHeroes.speed),
-  //   // intelligence: this.getTotalStats(this.intelligence),
-  //   // speed: this.getTotalStats(this.squads),
-  // }
 
    createHero = fields => {
      console.log(fields);
@@ -67,7 +53,7 @@ import styles from'./App.css';
 
   deleteFromSquad = id => {
     this.setState(state => ({
-    //  heroes: state.heroes.filter(hero => hero.id !== id),
+
      squads: state.squads.filter(squad => squad !== id)
     }));
   };
@@ -76,13 +62,12 @@ import styles from'./App.css';
     this.setState({ filter: str})
    };
   
-  //  ???
    handleSaveSquad = (heroes, squads) => {
     this.setState(state =>({
-      savedSquads: state.heroes.filter(hero => hero.id === squads)
-
+      savedSquads: [{id: v4()}, {heroes: state.heroes.filter(hero => hero.id === squads)}], 
+      squads: state.squads.splice()
     }));
-    // 
+
    };
 
    handleResetEditor = () => {
@@ -90,15 +75,46 @@ import styles from'./App.css';
       squads: state.squads.splice()
     }));
    }; 
+   
 
   render() {
-    console.log(`state.heroes`, this.state.heroes);
     const { heroes, filter, squads, savedSquads } = this.state;
     const visibleHeroes = getVisibleHeroes(heroes, filter);
     const squadHeroes = getsquadHeroes(heroes, squads);
-    // const readySquad=selecrotSquad(heroes, squads)
+    const getTotalStats = arrOfHeroes => {
+      const total = arrOfHeroes.reduce(
+          (stats, hero) => {
+              stats.strength += hero.strength;
+              stats.intelligence += hero.intelligence
+              stats.speed += hero.speed;
+  
+              return stats;
+          },
+          {strength: 0, intelligence: 0, speed: 0}
+      );
+      return total;
+    };
+    const totalStats = getTotalStats(squadHeroes);
+
+    // const showTotalStats = arrOfHeroes => {
+    //   const total = arrOfHeroes.reduce(
+    //       (stats, hero) => {
+    //           stats.strength = hero.strength;
+    //           stats.intelligence = hero.intelligence
+    //           stats.speed = hero.speed;
+  
+    //           return stats;
+    //       },0
+          
+    //   );
+    //   return total;
+    // };
+    
+    // const showStats = getTotalStats(savedSquads);
+    // console.log(`showStats`, showStats)
     console.log(`savedSquads:`,  this.state.savedSquads);
-    console.log(`state.squads`, this.state.squads);
+    // console.log(`state.squads`, this.state.squads);
+    // console.log(`getTotalStats(squadHeroes)`, totalStats)
 
     return (
       <div className={styles.App}>
@@ -107,11 +123,11 @@ import styles from'./App.css';
         </header>
         <div className={styles.App_wrap}> 
         <Panel>
-          <h2>Create Heroe</h2>
+          <h2 className={styles.wrap_header}>Create Heroe</h2>
           <CreateHeroe onFormSubmit={this.createHero} />
         </Panel>
         <Panel>
-          <h2>Heroes</h2>
+          <h2 className={styles.wrap_header}>Heroes</h2>
           <HeroesFilter onFilterChange={this.handleFilterChange} filter={filter}/>
           <HeroesList 
             heroes={visibleHeroes}
@@ -121,26 +137,23 @@ import styles from'./App.css';
           />
         </ Panel>
         <Panel>
-          <h2>Squad Heroes</h2>
+          <h2 className={styles.wrap_header}>Squad Heroes</h2>
           <Button onClick={this.handleSaveSquad} text='Save Squad'/>
           <Button onClick={this.handleResetEditor} text='Reset Squad'/>
-          <div>
-                {/* <p>strength: {this.strength}</p> */}
-                {/* <p>intelligence: {0}</p> */}
-                <p>speed: {this.getTotalStats(squadHeroes.speed)}</p>
-          </div>
-          <SquadList
+          <SquadStats 
+            totalValue={totalStats}
+          />
+          <SquadList  
               heroes={squadHeroes}
               onInfoHero={this.addInfoHero}
               onDeleteFromSquad={this.deleteFromSquad}
           />
         </ Panel>
         <Panel>
-          <h2>Saved Squads</h2> 
-          {/* <p><span>Heroes</span>   <span>Stats</span></p> */}
+          <h2 className={styles.wrap_header}>Saved Squads</h2> 
           <SavedSquads 
-            savedSquads = {savedSquads}
-            onDeletesquad={this.deletesquad} 
+            savedSquadsOfHeroe = {savedSquads}
+            onDeleteSquad={this.deleteFromSquad} 
           />
         </ Panel>
         </div>

@@ -3,6 +3,9 @@ import * as T from 'prop-types';
 import CapacityTitle from './CapacityTitle'; 
 import styles from './HeroesStyle.css';
 
+const INITIAL_STATE = {
+    inputName: '',
+}
 const makeOptions = num => {
     const elements = [];
   
@@ -17,7 +20,7 @@ const makeOptions = num => {
     return elements;
   };
 this.state = {
-    inputName: 0,
+    ...INITIAL_STATE
 };
 
 const ChooseCapacity = ({inputName, onInputChange, value}) => (
